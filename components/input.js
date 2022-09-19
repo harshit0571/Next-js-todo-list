@@ -1,8 +1,11 @@
 import { collection, addDoc } from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../firebase";
+import { useRouter } from "next/router";
 
 export default function InputField(props) {
+  const router = useRouter();
+
   const [task, settask] = useState("");
   const Send = async () => {
     try {
@@ -11,7 +14,7 @@ export default function InputField(props) {
         Task: task,
       });
       console.log("Document written with ID: ", docRef.id);
-      window.location.reload();
+      router.reload(window.location.pathname);
     } catch (e) {
       console.error("Error adding document: ", e);
     }

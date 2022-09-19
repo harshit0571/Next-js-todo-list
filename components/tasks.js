@@ -1,4 +1,6 @@
 import React from "react";
+import { useRouter } from "next/router";
+
 import {
   deleteDoc,
   getDoc,
@@ -9,11 +11,13 @@ import {
 import { db } from "../firebase";
 
 export default function Task(props) {
+  const router = useRouter();
+
   const Delete = async () => {
     const id = props.id;
     const docRef = await doc(db, "tasks", id);
     deleteDoc(docRef);
-    window.location.reload();
+    router.reload(window.location.pathname);
   };
   return (
     <div className="flex flex-row mt-1">
