@@ -7,10 +7,8 @@ export default function InputField(props) {
   const Send = async () => {
     try {
       console.log("working");
-      const docRef = await addDoc(collection(db, "users"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815,
+      const docRef = await addDoc(collection(db, "tasks"), {
+        Task: task,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -23,14 +21,17 @@ export default function InputField(props) {
       <input
         placeholder="Enter a new task"
         type={"text"}
+        value={task}
+        onChange={(e) => {
+          settask(e.target.value);
+        }}
         className="w-4/5 py-3 px-3 text-neutral-600 text-lg text-center m-3"
       />
       <span className="flex">
-        <button className=" bg-slate-200 rounded py-2 px-2 m-1">Add</button>
-        <button
-          className="mg-3 bg-slate-200 rounded py-2 px-2 m-1"
-          onClick={Send}
-        >
+        <button className=" bg-slate-200 rounded py-2 px-2 m-1" onClick={Send}>
+          Add
+        </button>
+        <button className="mg-3 bg-slate-200 rounded py-2 px-2 m-1">
           close
         </button>
       </span>
