@@ -13,6 +13,7 @@ export default function Task(props) {
     const id = props.id;
     const docRef = await doc(db, "tasks", id);
     deleteDoc(docRef);
+    window.location.reload();
   };
   return (
     <div className="flex flex-row mt-1">
