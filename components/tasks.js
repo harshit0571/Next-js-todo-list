@@ -12,12 +12,14 @@ import { db } from "../firebase";
 
 export default function Task(props) {
   const router = useRouter();
-
+  const refresh = () => {
+    router.reload(window.location.pathname);
+  };
   const Delete = async () => {
     const id = props.id;
-    const docRef = await doc(db, "tasks", id);
-    deleteDoc(docRef);
-    router.reload(window.location.pathname);
+    const docRef = doc(db, "tasks", id);
+    await deleteDoc(docRef);
+    refresh();
   };
   return (
     <div className="flex flex-row mt-1">

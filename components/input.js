@@ -13,7 +13,6 @@ export default function InputField(props) {
       const docRef = await addDoc(collection(db, "tasks"), {
         Task: task,
       });
-      console.log("Document written with ID: ", docRef.id);
       router.reload(window.location.pathname);
     } catch (e) {
       console.error("Error adding document: ", e);
