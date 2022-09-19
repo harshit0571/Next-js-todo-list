@@ -18,7 +18,8 @@ export default function Home() {
           create
         </button>
       </div>
-      {Show ? <InputField /> : null}
+      {/* {Show ? <InputField /> : null} */}
+      <InputField check={true} />
       <TaskContainer />
     </div>
   );
