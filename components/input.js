@@ -1,4 +1,23 @@
+import { collection, addDoc } from "firebase/firestore";
+import { useState } from "react";
+import { db } from "../firebase";
+
 export default function InputField(props) {
+  const [task, settask] = useState("");
+  const Send = async () => {
+    try {
+      console.log("working");
+      const docRef = await addDoc(collection(db, "users"), {
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center align-middle items-center mx-auto ">
       <input
@@ -8,7 +27,10 @@ export default function InputField(props) {
       />
       <span className="flex">
         <button className=" bg-slate-200 rounded py-2 px-2 m-1">Add</button>
-        <button className="mg-3 bg-slate-200 rounded py-2 px-2 m-1">
+        <button
+          className="mg-3 bg-slate-200 rounded py-2 px-2 m-1"
+          onClick={Send}
+        >
           close
         </button>
       </span>
