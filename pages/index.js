@@ -6,8 +6,12 @@ import Task from "../components/tasks";
 
 export default function Home() {
   const [Show, setShow] = useState(false);
+  const [Choice, setChoice] = useState("");
   const Input = () => {
     setShow(true);
+  };
+  const ListChoice = (e) => {
+    console.log(e.target.value);
   };
 
   return (
@@ -19,7 +23,30 @@ export default function Home() {
         </button>
       </div>
       {Show ? <InputField /> : null}
-      <TaskContainer />
+
+      <div className="flex items-center mx-auto flex-col">
+        <button
+          className="bg-blue-600 w-44 rounded py-2 px-2 text-center text-gray-50 mt-4"
+          onClick={ListChoice}
+          value="login"
+        >
+          Login
+        </button>
+        <button
+          className="bg-neutral-400 w-44 rounded py-2 px-2 text-center text-gray-50 mt-4"
+          onClick={ListChoice}
+          value="signup"
+        >
+          Signup
+        </button>
+        <button
+          className="bg-slate-600 w-44 rounded py-2 px-2 text-center  text-gray-50 mt-4"
+          onClick={ListChoice}
+          value="local"
+        >
+          Local storage
+        </button>
+      </div>
     </div>
   );
 }
