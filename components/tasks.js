@@ -19,7 +19,6 @@ export default function Task(props) {
     const id = props.id;
     const docRef = doc(db, "tasks", id);
     await deleteDoc(docRef);
-    refresh();
   };
   return (
     <div className="flex flex-row mt-1">

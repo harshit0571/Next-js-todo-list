@@ -1,10 +1,19 @@
-import Task from "./tasks";
-import { collection, getDoc, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+import { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export default function TaskContainer() {
+export default function TaskContainer({ userID }) {
   const [Tasks, setTasks] = useState([]);
+
   const data = [
     {
       task: "attend cla",
@@ -23,30 +32,28 @@ export default function TaskContainer() {
   //   });
   //   console.log(Task);
   // };
+  const create = async () => {
+    const data = doc(db, "userchats", userID);
+    await setDoc(data, { todos: [] });
+  };
 
   useEffect(() => {
-    const GetData = async () => {
-      setTasks([]);
-      const Data = await getDocs(collection(db, "tasks"));
-
-      Data.forEach((doc) => {
-        setTasks((arr) => [
-          ...arr,
-          {
-            id: doc.id,
-            data: doc.data(),
-          },
-        ]);
-      });
-    };
-    GetData();
+    console.log(userID);
+    const DATA = onSnapshot(doc(db, "userchats", userID), (doc) => {
+      if (doc.exists()) {
+        console.log(doc.data());
+      } else {
+        create();
+      }
+    });
+    return () => DATA;
   }, []);
 
   return (
     <div>
-      {Tasks.map((data) => {
-        return <Task key={data.id} task={data.data.Task} id={data.id} />;
-      })}
+      {/* {Tasks.map((data) => {
+        return <Task key={data.id} task={data.Task} id={data.id} />;
+      })} */}
     </div>
   );
 }

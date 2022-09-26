@@ -8,6 +8,7 @@ import Task from "../components/tasks";
 
 export default function Home() {
   const [Show, setShow] = useState(false);
+  const [User, setUser] = useState("");
   const [Choice, setChoice] = useState(null);
   const Input = () => {
     setShow(true);
@@ -15,6 +16,7 @@ export default function Home() {
   const ListChoice = (e) => {
     setChoice(e.target.value);
   };
+
   const Buttons = () => {
     return (
       <div className="flex items-center mx-auto flex-col">
@@ -42,7 +44,7 @@ export default function Home() {
       </div>
     );
   };
-  const choices = [<Login />, <Signup />];
+  const choices = [<Login choice={setChoice} user={setUser} />, <Signup />];
 
   return (
     <div>
@@ -54,8 +56,14 @@ export default function Home() {
           </button>
         )}
       </div>
-      {Show ? <InputField /> : null}
-      {Choice == null ? <Buttons /> : choices[Choice]}
+      {Show ? <InputField userID={User.uid} /> : null}
+      {Choice == null ? (
+        <Buttons />
+      ) : Choice == 201 ? (
+        <TaskContainer userID={User.uid} />
+      ) : (
+        choices[Choice]
+      )}
       {Choice == null ? null : (
         <button
           className="bg-neutral-400 w-44 rounded justify-center mx-auto flex  py-2 px-2 text-center text-gray-50 mt-4"

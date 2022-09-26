@@ -1,19 +1,23 @@
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../firebase";
 import { useRouter } from "next/router";
 
 export default function InputField(props) {
   const router = useRouter();
-
   const [task, settask] = useState("");
   const Send = async () => {
     try {
-      console.log("working");
-      const docRef = await addDoc(collection(db, "tasks"), {
-        Task: task,
-      });
-      router.reload(window.location.pathname);
+      // const data = doc(db, "userchats", props.userID);
+      // setDoc(data, { capital: true }, { merge: true });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
