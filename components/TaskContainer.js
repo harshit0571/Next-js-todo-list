@@ -33,14 +33,14 @@ export default function TaskContainer({ userID }) {
   //   });
   //   console.log(Task);
   // };
-  const create = async () => {
-    const data = doc(db, "userchats", userID);
-    await setDoc(data, { todos: [] });
-  };
 
   const newarray = [];
 
-  useEffect((newarray) => {
+  useEffect((newarray, userID) => {
+    const create = async () => {
+      const data = doc(db, "userchats", userID);
+      await setDoc(data, { todos: [] });
+    };
     console.log(userID);
     const DATA = onSnapshot(doc(db, "userchats", userID), (doc) => {
       if (doc.exists()) {
