@@ -44,9 +44,9 @@ export default function TaskContainer({ userID }) {
 
   return (
     <div>
-      {Tasks.forEach((item) => {
+      {Tasks.forEach((item, index) => {
         newarray.push(
-          <Task task={item} key={item} array={Tasks} userID_={userID} />
+          <Task task={item} key={index} array={Tasks} userID_={userID} />
         );
       })}
       {newarray}
