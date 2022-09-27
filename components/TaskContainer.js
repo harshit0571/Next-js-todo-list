@@ -54,14 +54,14 @@ export default function TaskContainer({ userID }) {
 
   return (
     <div>
-      {Tasks.forEach((item) => {
+      {/* {Tasks.forEach((item) => {
         console.log(item);
         newarray.push(
           <Task task={item} key={item} array={Tasks} userID_={userID} />
         );
         console.log(newarray);
       })}
-      {newarray}
+      {newarray} */}
     </div>
   );
 }
