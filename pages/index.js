@@ -44,7 +44,10 @@ export default function Home() {
       </div>
     );
   };
-  const choices = [<Login choice={setChoice} user={setUser} />, <Signup />];
+  const choices = [
+    <Login choice={setChoice} key={"he"} user={setUser} />,
+    <Signup key={"dc"} />,
+  ];
 
   return (
     <div>
