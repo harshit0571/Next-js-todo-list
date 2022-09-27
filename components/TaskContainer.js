@@ -56,7 +56,9 @@ export default function TaskContainer({ userID }) {
     <div>
       {Tasks.forEach((item) => {
         console.log(item);
-        newarray.push(<Task task={item} array={Tasks} userID_={userID} />);
+        newarray.push(
+          <Task task={item} key={item} array={Tasks} userID_={userID} />
+        );
         console.log(newarray);
       })}
       {newarray}
