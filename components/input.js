@@ -6,18 +6,23 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../firebase";
 import { useRouter } from "next/router";
 
-export default function InputField(props) {
+export default function InputField({ userID, check }) {
   const router = useRouter();
+  console.log(userID);
   const [task, settask] = useState("");
   const Send = async () => {
     try {
-      // const data = doc(db, "userchats", props.userID);
-      // setDoc(data, { capital: true }, { merge: true });
+      const data = doc(db, "userchats", userID);
+      await updateDoc(data, {
+        todos: arrayUnion(task),
+      });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -38,7 +43,12 @@ export default function InputField(props) {
         <button className=" bg-slate-200 rounded py-2 px-2 m-1" onClick={Send}>
           Add
         </button>
-        <button className="mg-3 bg-slate-200 rounded py-2 px-2 m-1">
+        <button
+          className="mg-3 bg-slate-200 rounded py-2 px-2 m-1"
+          onClick={() => {
+            check(false);
+          }}
+        >
           close
         </button>
       </span>

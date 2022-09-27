@@ -7,6 +7,7 @@ import {
   getDocs,
   onSnapshot,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -15,10 +16,29 @@ export default function Task(props) {
   const refresh = () => {
     router.reload(window.location.pathname);
   };
+  const delete_in_array = () => {
+    for (let index = 0; index < props.array.length; index++) {
+      if (props.task == props.array[index]) {
+        props.array.splice(
+          props.array.length,
+          0,
+          props.array.splice(index, 1)[0]
+        );
+        props.array.pop();
+      }
+    }
+  };
   const Delete = async () => {
-    const id = props.id;
-    const docRef = doc(db, "tasks", id);
-    await deleteDoc(docRef);
+    try {
+      const data = doc(db, "userchats", props.userID_);
+      delete_in_array();
+      console.log(props.array);
+      await updateDoc(data, {
+        todos: props.array,
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
   return (
     <div className="flex flex-row mt-1">

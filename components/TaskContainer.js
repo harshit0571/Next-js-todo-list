@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { useRouter } from "next/router";
+import Task from "./tasks";
 
 export default function TaskContainer({ userID }) {
   const [Tasks, setTasks] = useState([]);
@@ -37,11 +38,13 @@ export default function TaskContainer({ userID }) {
     await setDoc(data, { todos: [] });
   };
 
-  useEffect(() => {
+  const newarray = [];
+
+  useEffect((newarray) => {
     console.log(userID);
     const DATA = onSnapshot(doc(db, "userchats", userID), (doc) => {
       if (doc.exists()) {
-        console.log(doc.data());
+        setTasks(doc.data().todos);
       } else {
         create();
       }
@@ -51,9 +54,12 @@ export default function TaskContainer({ userID }) {
 
   return (
     <div>
-      {/* {Tasks.map((data) => {
-        return <Task key={data.id} task={data.Task} id={data.id} />;
-      })} */}
+      {Tasks.forEach((item) => {
+        console.log(item);
+        newarray.push(<Task task={item} array={Tasks} userID_={userID} />);
+        console.log(newarray);
+      })}
+      {newarray}
     </div>
   );
 }

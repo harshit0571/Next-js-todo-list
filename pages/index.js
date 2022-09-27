@@ -56,7 +56,7 @@ export default function Home() {
           </button>
         )}
       </div>
-      {Show ? <InputField userID={User.uid} /> : null}
+      {Show ? <InputField userID={User.uid} check={setShow} /> : null}
       {Choice == null ? (
         <Buttons />
       ) : Choice == 201 ? (
