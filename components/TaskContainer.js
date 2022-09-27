@@ -15,16 +15,6 @@ import Task from "./tasks";
 export default function TaskContainer({ userID }) {
   const [Tasks, setTasks] = useState([]);
 
-  const data = [
-    {
-      task: "attend cla",
-      id: 1,
-    },
-    { task: "do work", id: 2 },
-    { task: "homework", id: 3 },
-    { task: "college", id: 3 },
-  ];
-
   // const GetData = async () => {
   //   console.log("hello");
   //   const doc = await getDocs(collection(db, "tasks"));
@@ -36,7 +26,7 @@ export default function TaskContainer({ userID }) {
 
   const newarray = [];
 
-  useEffect((newarray, userID) => {
+  useEffect((newarray) => {
     const create = async () => {
       const data = doc(db, "userchats", userID);
       await setDoc(data, { todos: [] });
@@ -54,14 +44,12 @@ export default function TaskContainer({ userID }) {
 
   return (
     <div>
-      {/* {Tasks.forEach((item) => {
-        console.log(item);
+      {Tasks.forEach((item) => {
         newarray.push(
           <Task task={item} key={item} array={Tasks} userID_={userID} />
         );
-        console.log(newarray);
       })}
-      {newarray} */}
+      {newarray}
     </div>
   );
 }
